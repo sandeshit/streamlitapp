@@ -1,6 +1,8 @@
 import streamlit as st
 from beautiful import scrape_page
 from embeddings import sentencembd
+import hashlib
+from dbupdate import checkdata, insertdata
 
 st.title("WELCOME TO MLAPP")
 
@@ -14,15 +16,22 @@ embd = []
 # Button to trigger the scraping
 if st.button("Enter"):
     if val:
-        # Call the scrape_page function with the URL value
-        title, body = scrape_page(val)
-        embd = sentencembd(title)
+        result1 = hashlib.md5(val.encode('utf-8'))
+        hash = result1.hexdigest()
+        title,body = checkdata(hash)
+        if not title:
+            title, body = scrape_page(val)
+            embd = sentencembd(title)
+            insertdata(hash,val,title,body,embd)
+
+        st.write(f"URL passed to scrape_page: {val}")
+        st.write(title)
+        st.write(body)
+
+
     else:
         st.error('Please enter a URL.')
 
 # Optionally, you can print the URL in the Streamlit app instead of using print()
-st.write(f"URL passed to scrape_page: {val}")
-st.write(title)
-st.write(body)
 
-print(embd)
+#print(embd)
