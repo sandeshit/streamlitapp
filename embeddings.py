@@ -1,5 +1,7 @@
 import torch
 import torchvision
+from sklearn.metrics.pairwise import cosine_similarity
+from dbupdate import embdcompare
 
 
 
@@ -11,6 +13,10 @@ def sentencembd(veru):
     embeddings = model.encode(veru)
     #print(embeddings)
     return embeddings
+
+
+
+
 
 
 

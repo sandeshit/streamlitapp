@@ -6,5 +6,12 @@ cursor = conn.cursor()
 
 cursor.execute('''SELECT TITLE FROM INTERNALDB''')
 
+j = 0
+
 result = cursor.fetchall()
-print(result)
+for i in result:
+    
+    print(f'{j}.{i}')
+    print("-----")
+    j+=1
+
