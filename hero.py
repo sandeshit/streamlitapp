@@ -1,8 +1,3 @@
-import pandas as pd
-import numpy as np 
-import torch
-import torchvision
-import torch.nn as nn
 import streamlit as st 
 
 page_1 = st.Page(

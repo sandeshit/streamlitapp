@@ -1,7 +1,8 @@
 import streamlit as st
-import hashlib
 from embeddings import sentencembd
-from dbupdate import embdcompare
+from dbupdate import dbupdate
+
+db = dbupdate()
 
 st.title("This is the search page")
 
@@ -16,10 +17,12 @@ embd = []
 if st.button("Enter"):
     if titl:
         embd = sentencembd(titl)
-        ret = embdcompare(embd)
-        
+
+        ret, link = db.embdcompare(embd)
+        if ret:
+            st.markdown(f"[{ret}]({link})")
+
         st.write(f"Query passed to the search: {titl}")
-        st.write(ret)
 
 
     else:
